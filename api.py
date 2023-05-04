@@ -5,6 +5,9 @@ datos={}
 ilu=0
 pro=0
 led=0
+datos['ilu']=0
+datos['pro']=0
+datos['leds']=0
 @app.route('/')
 
 def api():
@@ -16,9 +19,12 @@ def api():
     led=request.args.get('leds')
 
     #guardamos los datos introducidos por la app
-    datos['ilu']=ilu
-    datos['pro']=pro
-    datos['leds']=led
+    if ilu != None:
+        datos['ilu']=ilu
+    if pro != None:
+        datos['pro']=pro
+    if led != None:
+        datos['leds']=led
     
     if id == "Nacho":
         return render_template('index.html',datos=datos)
