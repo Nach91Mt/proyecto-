@@ -2,7 +2,11 @@ from flask import Flask ,request, render_template
 
 app =Flask(__name__)
 datos={}
+ilu=0
+pro=0
+led=0
 @app.route('/')
+
 def api():
         #ejemplo http://127.0.0.1:5000/?id=Nacho&ilu=22
         #recogemos los datos introducidos por la app del movil
@@ -15,6 +19,7 @@ def api():
     datos['ilu']=ilu
     datos['pro']=pro
     datos['leds']=led
+    
     if id == "Nacho":
         return render_template('index.html',datos=datos)
     else:
