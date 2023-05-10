@@ -31,6 +31,10 @@
     <div>
         <H1>PROGRAMA</H1>
         <h1 id="programa"></h1></div>
+    <div>
+        <h1>COLOR</h1>
+        <H1 id="color"></H1>
+    </div>
 </body>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
@@ -40,6 +44,7 @@ $(document).ready(function() {
             $('#leds').text(JSON.stringify(datos.leds).replace(/\"/g, ""));
             $('#iluminacion').text(JSON.stringify(datos.ilu).replace(/\"/g, ""));
             $('#programa').text(JSON.stringify(datos.pro).replace(/\"/g, ""));
+            $('#color').text(JSON.stringify(datos.pro).replace(/\"/g, ""));
         });
     }, 1000); // Actualizar cada 5 segundos
 });
