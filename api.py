@@ -6,11 +6,11 @@ datos={}
 ilu=0
 pro=0
 led=0
-color='0'
+color='A62206'
 datos['ilu']=0
 datos['pro']=0
 datos['leds']=0
-datos['color']='0'
+datos['color']='A62206'
 @app.route('/')
 
 def api():
