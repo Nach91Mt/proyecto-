@@ -23,13 +23,26 @@
     <h1></h1>
     <div>
         <h1>Nº LEDS</h1>
-        <h1 id="leds">{{datos.leds}}</h1>
+        <h1 id="leds"></h1>
     </div>
     <div>
         <h1>ILUMINACION</h1>
-        <h1 id="iluminacion">{{datos.ilu}}</h1></div>
+        <h1 id="iluminacion"></h1></div>
     <div>
         <H1>PROGRAMA</H1>
-        <h1 id="programa">{{datos.pro}}</h1></div>
+        <h1 id="programa"></h1></div>
 </body>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+$(document).ready(function() {
+    setInterval(function() {
+        $.getJSON('/datos', function(datos) {
+            $('#leds').text(JSON.stringify(datos.leds).replace(/\"/g, ""));
+            $('#iluminacion').text(JSON.stringify(datos.ilu).replace(/\"/g, ""));
+            $('#programa').text(JSON.stringify(datos.pro).replace(/\"/g, ""));
+        });
+    }, 2000); // Actualizar cada 5 segundos
+});
+</script>
+
 </html>
