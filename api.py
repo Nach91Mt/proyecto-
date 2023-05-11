@@ -36,7 +36,7 @@ def api():
     if id == "Nacho":
         return render_template('index.html',datos=datos)
     else:
-        return "<h1>Usuario incorrecto</h1>"
+        return "<h1 >Usuario incorrecto</h1>"
 @app.route('/datos')
 def obtener_datos():
     return jsonify(datos)

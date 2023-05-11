@@ -38,16 +38,26 @@
 </body>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
-$(document).ready(function() {
-    setInterval(function() {
-        $.getJSON('/datos', function(datos) {
-            $('#leds').text(JSON.stringify(datos.leds).replace(/\"/g, ""));
-            $('#iluminacion').text(JSON.stringify(datos.ilu).replace(/\"/g, ""));
-            $('#programa').text(JSON.stringify(datos.pro).replace(/\"/g, ""));
-            $('#color').text(JSON.stringify(datos.color).replace(/\"/g, ""));
-        });
-    }, 1000); // Actualizar cada 1 segundos
-});
-</script>
+    $(document).ready(function() {
+        var prevData = {}; // Variable para almacenar la información previa recibida
+    
+        setInterval(function() {
+            $.getJSON('/datos', function(datos) {
+                if (!isEqual(datos, prevData)) { // Compara si la información es diferente a la anterior
+                    $('#leds').text(JSON.stringify(datos.leds).replace(/\"/g, ""));
+                    $('#iluminacion').text(JSON.stringify(datos.ilu).replace(/\"/g, ""));
+                    $('#programa').text(JSON.stringify(datos.pro).replace(/\"/g, ""));
+                    $('#color').text(JSON.stringify(datos.color).replace(/\"/g, ""));
+                    prevData = datos; // Actualiza la información previa con la nueva información
+                }
+            });
+        }, 1000); // Actualizar cada 1 segundos
+    });
+    
+    // Función que compara si dos objetos son iguales
+    function isEqual(obj1, obj2) {
+        return JSON.stringify(obj1) === JSON.stringify(obj2);
+    }
+    </script>
 
 </html>
