@@ -37,8 +37,6 @@ def api():
         return render_template('index.html',datos=datos)
     else:
         return "<h1 >Usuario incorrecto</h1>"
-@app.route('/datos')
-def obtener_datos():
-    return jsonify(datos)
+
 if __name__ =='__main__':
     app.run(debug=True)
