@@ -23,19 +23,38 @@
     <h1></h1>
     <div>
         <h1>Nº LEDS</h1>
-        <h1 id="leds">{{datos.leds}}</h1>
+        <h1 id="leds"></h1>
     </div>
     <div>
         <h1>BRILLO</h1>
-        <h1 id="iluminacion">{{datos.ilu}}</h1></div>
+        <h1 id="iluminacion"></h1></div>
     <div>
         <H1>PROGRAMA</H1>
-        <h1 id="programa">{{datos.pro}}</h1></div>
+        <h1 id="programa"></h1></div>
     <div>
         <h1>COLOR</h1>
-        <H1 id="color">{{datos.color}}</H1>
+        <H1 id="color"></H1>
     </div>
 </body>
+    <script>
+        function actualizarDatos() {
+            // Realizar una petición a la API para obtener los nuevos datos
+            fetch('json')
+                .then(response => response.json())
+                .then(data => {
+                    // Actualizar los valores en el HTML
+                    document.getElementById('leds').textContent = data.leds;
+                    document.getElementById('iluminacion').textContent = data.ilu;
+                    document.getElementById('programa').textContent = data.pro;
+                    document.getElementById('color').textContent = data.color;
+                })
+                .catch(error => {
+                    console.error('Error al obtener los datos:', error);
+                });
+        }
 
+        // Actualizar los datos cada X segundos (por ejemplo, cada 5 segundos)
+        setInterval(actualizarDatos, 5000);
+    </script>
 
 </html>
