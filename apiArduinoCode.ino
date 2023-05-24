@@ -18,7 +18,7 @@ const int serverPort = 80;
 const char* endpoint = "/json";
 
 // Tamaño máximo de respuesta HTTP
-const int MAX_RESPONSE_SIZE = 2024;
+const int MAX_RESPONSE_SIZE = 1024;
 int ilu,leds,pro;
 // Objeto de cliente Wi-Fi
 WiFiClient client;
@@ -50,6 +50,9 @@ void loop() {
     case 2:
     efect2();
       break;
+    case 3:
+    efect3();
+      break;
     default:
       break;
     }
@@ -76,7 +79,7 @@ void loop() {
       break;
     }
     leds[i - 3] = CRGB::Black;
-    leds[i] = CRGB::color;
+    leds[i] = colorLeds;
     FastLED.show();
     delay(100);
     
@@ -96,13 +99,13 @@ void loop() {
   }
   
   void efect2(){
-    fil.solid(leds,NUM_LEDS,color)
-    FastLED.show();
+    fil.solid(leds,NUM_LEDS,colorLeds);
     for(int i =0;i<255;i++){
       if(pro !=2){
         break;
       }
       FastLED.setBrightness(i);
+      FastLED.show();
     }
     actualizar()
     for(int i=255; i>0;i--){
@@ -110,10 +113,18 @@ void loop() {
         break;
       }
       FastLED.setBrightness(i);
+      FastLED.show();
     }
     actualizar();
   }
-  // funcion que actualiza la informacionde la api
+ 
+ void efect3(){
+  fill.solid(leds,NUM_LEDS,colorLeds);
+  FastLED.setBrightness(BRIGHTNESS);
+  FastLED.show();
+  actualizar();
+ }
+ // funcion que actualiza la informacionde la api
   void actualizar(){
     // Verificar si se puede conectar al servidor
   if (client.connect(serverUrl, serverPort)) {
