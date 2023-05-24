@@ -1,6 +1,13 @@
 #include <WiFi.h>
 #include <ArduinoJson.h>
+#include <FastLED.h>
 
+#define NUM_LEDS 60        // Cantidad total de LEDs en la tira
+#define DATA_PIN 6         // Pin de datos conectado a la tira de LEDs
+#define BRIGHTNESS 255     // Brillo de los LEDs (0-255)
+//establecco el numero de leds y el color que van a tener
+CRGB leds[NUM_LEDS];
+CRGB colorLeds;
 // Configuración de la red Wi-Fi
 const char* ssid = "Chupacabras";
 const char* password = "12345678";
@@ -18,6 +25,10 @@ WiFiClient client;
 
 void setup() {
   Serial.begin(9600);
+  
+  //Establezco los leds y su brillo 
+  FastLED.addLeds<WS2812B, DATA_PIN, GRB>(leds, NUM_LEDS);
+  FastLED.setBrightness(BRIGHTNESS);
 
   // Conexión a la red Wi-Fi
   WiFi.begin(ssid, password);
@@ -26,11 +37,82 @@ void setup() {
     Serial.println("Conectando a la red Wi-Fi...");
   }
   Serial.println("Conectado a la red Wi-Fi");
+  actualizar();
 }
 
 void loop() {
-    actualizar();
+    
+    switch (pro)
+    {
+    case 1:
+      efect1();
+      break;
+    case 2:
+    efect2();
+      break;
+    default:
+      break;
     }
+    }
+  void efect1(){
+    // Encender el primer LED
+  leds[0] = colorLeds;
+
+  // Encender los dos LEDs siguientes
+  for (int i = 1; i < 3; i++) {
+    leds[i] = colorLeds;
+    FastLED.show();
+    delay(100);
+  }
+
+  // Apagar todos los LEDs
+  for (int i = 0; i < NUM_LEDS; i++) {
+    leds[i] = CRGB::Black;
+  }
+
+  // Mover los dos LEDs encendidos a lo largo de la tira
+  for (int i = 3; i < NUM_LEDS; i++) {
+    if(pro!=1){
+      break;
+    }
+    leds[i - 3] = CRGB::Black;
+    leds[i] = CRGB::color;
+    FastLED.show();
+    delay(100);
+    
+  }
+  actualizar();
+  // Apagar los dos LEDs finales
+  for (int i = NUM_LEDS - 3; i < NUM_LEDS; i++) {
+    if(pro!=1){
+      break;
+    }
+    leds[i] = CRGB::Black;
+    FastLED.show();
+    delay(100);
+    
+  }
+  actualizar();
+  }
+  
+  void efect2(){
+    fil.solid(leds,NUM_LEDS,color)
+    FastLED.show();
+    for(int i =0;i<255;i++){
+      if(pro !=2){
+        break;
+      }
+      FastLED.setBrightness(i);
+    }
+    actualizar()
+    for(int i=255; i>0;i--){
+      if(pro !=2){
+        break;
+      }
+      FastLED.setBrightness(i);
+    }
+    actualizar();
+  }
   // funcion que actualiza la informacionde la api
   void actualizar(){
     // Verificar si se puede conectar al servidor
@@ -82,6 +164,11 @@ void loop() {
         Serial.println(leds);
         Serial.print("Pro: ");
         Serial.println(pro);
+
+        BRIGHTNESS=ilu;
+        NUM_LEDS=leds;
+        colorLeds=color;
+        FastLED.setBrightness(BRIGHTNESS);
     } 
   }
 }
