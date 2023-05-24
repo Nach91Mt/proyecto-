@@ -14,11 +14,7 @@ datos['color']='0xFF0000'
 @app.route('/')
 
 def api():
-    i=1
-    if i < 2:
-        print('yes')
-        #ejemplo http://127.0.0.1:5000/?id=Nacho&ilu=22
-        #recogemos los datos introducidos por la app del movil
+    #recogemos los datos introducidos por la app del movil
     ilu=request.args.get('ilu')  
     pro=request.args.get('pro')
     id= request.args.get('id')
